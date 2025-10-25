@@ -28,27 +28,24 @@
 }
 
 body {
-    display: flex;
-    /* 💡 convierte el body en contenedor flexible */
-    justify-content: center;
-    /* 💡 centra horizontalmente */
-    align-items: center;
-    /* 💡 centra verticalmente */
-    height: 100vh;
-    /* 💡 ocupa toda la altura de la ventana */
     font-family: 'Inter', sans-serif;
     background-color: var(--color-bg);
     color: var(--color-text);
     margin: 0;
     padding: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 
 /* === CONTENEDOR GENERAL === */
 
 .container {
+    width: 90%;
     max-width: 1000px;
-    margin: 2rem auto;
+    margin: 1.5rem auto;
     background: var(--color-card);
     padding: 2rem;
     border-radius: 10px;
@@ -73,6 +70,9 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 1.5rem;
+    display: block;
+    /* ✅ Para scroll en móviles */
+    overflow-x: auto;
 }
 
 th,
@@ -96,12 +96,13 @@ tr:hover {
 
 .btn {
     display: inline-block;
-    padding: 8px 14px;
+    padding: 10px 15px;
     border-radius: 6px;
     text-decoration: none;
     color: white;
     font-weight: 600;
     transition: all 0.2s ease;
+    text-align: center;
 }
 
 .btn-warning {
@@ -133,7 +134,7 @@ input,
 textarea,
 select {
     width: 100%;
-    padding: 8px 10px;
+    padding: 10px;
     margin-top: 5px;
     margin-bottom: 15px;
     border-radius: 6px;
@@ -181,23 +182,37 @@ input[type="submit"]:hover {
 /* === RESPONSIVE === */
 
 @media (max-width: 768px) {
-    .container {
+    body {
+        display: block;
         padding: 1rem;
+    }
+    .container {
+        width: 95%;
+        padding: 1rem;
+        margin: 1rem auto;
     }
     table,
     th,
     td {
         font-size: 14px;
     }
+    .btn {
+        width: 100%;
+        /* ✅ Botones ocupan ancho completo en móvil */
+        margin-bottom: 10px;
+    }
 }
 
+
+/* === TARJETAS / CARD === */
+
 .card {
-    background-color: var(--color-card-light);
-    padding: 2rem 3rem;
+    background-color: var(--color-card);
+    padding: 2rem;
     border-radius: 12px;
-    box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
-    width: 100%;
+    box-shadow: var(--shadow);
     max-width: 400px;
+    margin: auto;
     text-align: center;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
 }
