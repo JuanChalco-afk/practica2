@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Crear Cuenta</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="card">
+        <h2>Registro de Nuevo Usuario</h2>
+
+        <form method="POST" action="/usuario">
+            <label>Nombre:</label><br>
+            <input type="text" name="nombre" required><br><br>
+
+            <label>Correo:</label><br>
+            <input type="email" name="correo" required><br><br>
+
+            <label for="rol">Rol:</label><br>
+            <select name="rol" id>
+                    <option value="usuario">Usuario</option>
+                </select><br><br>
+
+            <button type="submit">Registrar</button>
+        </form>
+
+        <p><a class="btn" href="{{ url_for('login') }}">Volver al inicio de
+                    sesión</a></p>
+
+        {% with messages = get_flashed_messages() %} {% if messages %}
+        <ul style="color:red;">
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %} {% endwith %}
+    </div>
+
+</body>
+
+</html>

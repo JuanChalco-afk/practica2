@@ -1,0 +1,60 @@
+{% extends "base.html" %} {% block content %}
+<h2>Crear Nueva Encuesta</h2>
+
+<!-- Mensajes flash -->
+{% with messages = get_flashed_messages() %} {% if messages %} {% for message in
+messages %}
+<div class="alert alert-warning">{{ message }}</div>
+{% endfor %} {% endif %} {% endwith %}
+
+<form method="POST" onsubmit="return validarFormulario()">
+    <label>Título:</label><br>
+    <input type="text" name="titulo" required><br><br>
+
+    <label>Descripción:</label><br>
+    <textarea name="descripcion" required></textarea><br><br>
+
+    <label>Cantidad de preguntas:</label><br>
+    <input type="number" name="cantidad" id="cantidad" min="1" required><br><br>
+
+    <div id="preguntas"></div>
+
+    <button type="button" onclick="generarPreguntas()">Generar
+        preguntas</button>
+    <button type="submit">Guardar Encuesta</button>
+</form>
+
+<script>
+    function generarPreguntas() {
+        let cantidad = document.getElementById('cantidad').value.trim();
+        let div = document.getElementById('preguntas');
+        div.innerHTML = "";
+
+        if (cantidad === "" || isNaN(cantidad) || cantidad <= 0) {
+            alert("Por favor, ingrese una cantidad válida de preguntas.");
+            return;
+        }
+
+        for (let i = 1; i <= cantidad; i++) {
+            div.innerHTML += `
+                <h4>Pregunta ${i}</h4>
+                <input type="text" name="pregunta_${i}" placeholder="Texto de la pregunta" required><br>
+                <label>Tipo:</label>
+                <select name="tipo_${i}">
+                    <option value="si_no">Sí / No</option>
+                    <option value="multiple">Selección múltiple</option>
+                </select><br><br>
+            `;
+        }
+    }
+
+    function validarFormulario() {
+        let divPreguntas = document.getElementById('preguntas');
+        if (divPreguntas.children.length === 0) {
+            alert("Por favor, genera las preguntas antes de guardar la encuesta.");
+            return false;
+        }
+        return true;
+    }
+</script>
+{% endblock %}

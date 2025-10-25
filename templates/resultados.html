@@ -1,0 +1,48 @@
+{% extends "base.html" %} {% block content %}
+
+<h2>Título: {{ encuesta.titulo }}</h2>
+<p><strong>Descripción:</strong> {{ encuesta.descripcion }}</p>
+<p><strong>Fecha de creación:</strong> {{ encuesta.fecha_creacion }}</p>
+
+<h4>Respuestas en porcentajes</h4>
+
+<table class="table table-bordered text-center">
+    <thead>
+        <tr>
+            <th>Preguntas</th>
+            <th colspan="7" style="color: blue;">Respuestas</th>
+        </tr>
+        <tr>
+            <th></th>
+            <th style="color: red;">si</th>
+            <th style="color: red;">no</th>
+            <th style="color: red;">satisfecho</th>
+            <th style="color: red;">insatisfecho</th>
+            <th style="color: red;">acuerdo</th>
+            <th style="color: red;">desacuerdo</th>
+            <th style="color: red;">neutral</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for d in datos %}
+        <tr>
+            <td>{{ d.pregunta }}</td>
+            <td>{{ d.porcentajes.si }}</td>
+            <td>{{ d.porcentajes.no }}</td>
+            <td>{{ d.porcentajes.satisfecho }}</td>
+            <td>{{ d.porcentajes.insatisfecho }}</td>
+            <td>{{ d.porcentajes.acuerdo }}</td>
+            <td>{{ d.porcentajes.desacuerdo }}</td>
+            <td>{{ d.porcentajes.neutral }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div class="mt-3">
+    <a href="{{ url_for('exportar_pdf', id_encuesta=encuesta.id) }}"
+        class="btn btn-success">Exportar resultados</a>
+    <a href="{{ url_for('index') }}" class="btn btn-secondary">Regresar</a>
+</div>
+
+{% endblock %}

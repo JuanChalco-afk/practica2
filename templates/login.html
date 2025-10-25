@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio de Sesión</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="card">
+        <h2>Iniciar Sesión</h2>
+
+        <form method="POST" action="/login">
+            <label>Nombre:</label><br>
+            <input type="text" name="nombre" required><br><br>
+
+            <label>Correo:</label><br>
+            <input type="email" name="correo" required><br><br>
+
+            <button class="btn" type="submit">Iniciar Sesión</button>
+        </form>
+
+        <p>¿No tienes cuenta?
+            <a class="btn btn-danger" href="{{ url_for('crear_usuario') }}">Crear
+                    cuenta</a>
+        </p>
+
+        {% with messages = get_flashed_messages() %} {% if messages %}
+        <ul style="color:red;">
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %} {% endwith %}
+
+    </div>
+
+</body>
+
+</html>

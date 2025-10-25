@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <nav>
+        <h1>Sistema de Evaluación de Satisfacción</h1>
+        <div>
+            <a class="btn" href="{{ url_for('crear_encuesta') }}">Crear
+                    nueva
+                    encuesta</a>
+        </div>
+        <div class="container mt-4">
+            {% block content %} {% endblock%}
+
+        </div>
+    </nav>
+</body>
+
+</html>

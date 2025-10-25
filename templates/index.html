@@ -1,0 +1,50 @@
+{% extends "base.html" %} {% block content %}
+
+<h1>Bienvenido, {{ nombre }}</h1>
+
+<!-- 🔹 BLOQUE PARA MENSAJES FLASH -->
+{% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
+<div class="alert alert-warning" role="alert" style="margin-top: 10px;">
+    {{ message }}
+</div>
+{% endfor %} {% endif %} {% endwith %}
+<!-- 🔹 FIN DEL BLOQUE -->
+
+<h2>Encuestas disponibles</h2>
+
+<table class="table table-stiped table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>Id</th>
+            <th>Titulo</th>
+            <th>Descripcion</th>
+            <th>Fecha de creacion</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for e in encuestas %}
+        <tr>
+            <td>{{ e.id }}</td>
+            <td>{{ e.titulo }}</td>
+            <td>{{ e.descripcion }}</td>
+            <td>{{ e.fecha_creacion }}</td>
+            <td>
+                <a href="{{ url_for('llenar_encuesta', id_encuesta=e.id) }}" class="btn btn-warning">
+                    Llenar encuesta
+                </a>
+                <a href="{{ url_for('resultados', id_encuesta=e.id) }}" class="btn btn-danger">
+                    Ver resultados
+                </a>
+                <a href="{{ url_for('eliminar_encuesta', id_encuesta=e.id) }}" class="btn btn-secondary" onclick="return confirm('¿Está seguro de eliminar esta encuesta?');">
+                    Eliminar encuesta
+                </a>
+            </td>
+        </tr>
+        {% else %}
+        <li>No hay encuestas disponibles.</li>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a class="btn" href="{{ url_for('logout') }}">Cerrar Sesión</a> {% endblock %}

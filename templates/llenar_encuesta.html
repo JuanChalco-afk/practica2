@@ -1,0 +1,22 @@
+{% extends "base.html" %} {% block content %}
+<h2>{{ encuesta.titulo }}</h2>
+<p>{{ encuesta.descripcion }}</p>
+
+<form method="POST">
+    {% for p in preguntas %}
+    <label>{{ p.texto_pregunta }}</label><br> {% if p.tipo == "si_no" %}
+    <select name="respuesta_{{ p.id }}">
+        <option value="si">Si</option>
+        <option value="no">No</option>
+    </select> {% else %}
+    <select name="respuesta_{{ p.id }}">
+        <option value="satisfecho">Satisfecho</option>
+        <option value="insatisfecho">Insatisfecho</option>
+        <option value="acuerdo">De acuerdo</option>
+        <option value="desacuerdo">En desacuerdo</option>
+        <option value="neutral">Neutral</option>
+    </select> {% endif %}
+    <br><br> {% endfor %}
+    <button type="submit">Enviar Respuestas</button>
+</form>
+{% endblock %}
